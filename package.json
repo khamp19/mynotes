@@ -1,0 +1,21 @@
+{
+  "name": "my_notes",
+  "version": "1.0.0",
+  "description": "simple react-redux note taking app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "khamp19"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "khamp19",
+  "license": "ISC"
+}
