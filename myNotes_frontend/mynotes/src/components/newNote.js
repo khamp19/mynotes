@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addNote, updateNote, deleteNote } from '../actions';
+import { addNote } from '../actions';
+import Button from 'react-bootstrap/lib/Button';
+import HomeButton from './homeButton';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import Panel from 'react-bootstrap/lib/Panel';
 
 class NewNote extends Component{
   constructor() {
@@ -36,21 +40,30 @@ class NewNote extends Component{
     return(
       <div className="newNoteForm">
         <form>
-          Title:
-          <input type='text'
-            className="newNote"
-            placeholder="New Note"
-            value={this.state.title}
-            onChange={this.handleAddNote} />
-          Note Content:
-          <input type='text'
-            className='newNote'
-            placeholder="Input your note here"
-            value={this.state.content}
-            onChange={this.handleContent} />
-          <button color='green' onClick={this.addNote}>Save Note</button>
-          <button color='blue' onClick={this.updateNote}>Edit Note</button>
-          <button color='red' onClick={this.deleteNote}>Delete Note</button>
+          <Panel>
+            <h4>New Note</h4>
+            <p>Add new note here</p>
+            Title:
+            <input type='text'
+              className="newNote"
+              placeholder="New Note"
+              style={{width: 400}}
+              value={this.state.title}
+              onChange={this.handleTitle} />
+            <br/>
+            Note Content:
+            <br/>
+            <input type='text'
+              className="newNote"
+              style={{width: 400, height: 200}}
+              placeholder="Input your note here"
+              value={this.state.content}
+              onChange={this.handleContent} />
+            <ButtonToolbar className="newNBT">
+              <Button bsStyle="success" onClick={this.addNote}>Save Note</Button>
+              <HomeButton />
+            </ButtonToolbar>
+          </Panel>
         </form>
       </div>
     );

@@ -2,60 +2,43 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllNotes } from '../actions';
-import Note from './note';
+import { Link } from 'react-router-dom';
+import ListGroup from 'react-bootstrap/lib/ListGroup';
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
+import Button from 'react-bootstrap/lib/Button';
+import Panel from 'react-bootstrap/lib/Panel';
 
 class NotesMenu extends Component {
   componentDidMount() {
     this.props.getAllNotes();
-  }
-
-  getNote = (e) => {
-    e.preventDefault();
-    const id = this.state._id;
-    this.props.dispatch(getNote(id));
-    this.setState({
-      title:'',
-      content:''
-    });
-  };
-
-  updateNote = (e) => {
-    e.preventDefault();
-    const noteData = {
-      id: this.state._id,
-      update: {
-        title: this.state.title,
-        content: this.state.content
-      }
-    };
-    this.props.dispatch(updateNote(noteData));
-    this.setState({
-      title: '',
-      content: ''
-    });
-  };
-
-  deleteNote = (e) => {
-    e.preventDefault();
-    this.props.dispatch(deleteNote(this.state._id));
-    this.setState({
-      title: '',
-      content: '',
-    });
   };
 
   render() {
     return (
-      <div className="Notes Menu">
-        <ul>
-          {this.props.notes.map((note, i) => {
-            return (
-              <Note note={note} key={i} handleGetSingleNote={this.getNote}/>
-            )
-          })}
-        </ul>
+      <div className="notes">
+        <div className="header">
+          <h2>My Notes</h2>
+        </div>
+        <div className="notesMenu">
+          <Panel>
+            <ListGroup>
+              {this.props.notes.map((note, i) => {
+                return (
+                  <ListGroupItem key={i}>
+                    <Link to={`/notes/${note._id}`}>
+                      <h4>{note.title}</h4>
+                    </Link>
+                  </ListGroupItem>
+                );
+              })}
+            </ListGroup>
+          </Panel>
+        </div>
+        <Link to={`notes/new-note`}>
+          <Button bsStyle="info">Add New Note</Button>
+        </Link>
       </div>
-    )
+    );
   }
 };
 
