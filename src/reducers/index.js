@@ -4,7 +4,7 @@ import NotesReducer from './NotesReducer';
 import SelectedNoteReducer from './SelectedNoteReducer';
 
 const rootReducer = combineReducers({
-  notes: NotesReducer ,
+  notes: NotesReducer,
   selectedNote: SelectedNoteReducer
 });
 

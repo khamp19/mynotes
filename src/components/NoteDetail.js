@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getNote } from '../actions';
+import { getNote, deleteNote } from '../actions';
 import Panel from 'react-bootstrap/lib/Panel';
+import Button from 'react-bootstrap/lib/Button';
 import HomeButton from './homeButton';
 
 class NoteDetail extends Component {
@@ -18,6 +19,10 @@ class NoteDetail extends Component {
           <p>{this.props.selectedNote.content}</p>
           <p>{`Created on: ${this.props.selectedNote.created_at}`}</p>
           <HomeButton />
+          <Button onClick={() => {
+            console.log(this.props)
+            this.props.deleteNote(this.props.selectedNote._id);
+            }}>Delete</Button>
         </Panel>
       </div>
     )
@@ -30,4 +35,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getNote })(NoteDetail);
+export default connect(mapStateToProps, { getNote, deleteNote })(NoteDetail);

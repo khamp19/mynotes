@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const Note = require('./notes');
+const path = require('path');
+
+const PORT = normalizePort(process.env.PORT || 8080);
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
@@ -12,9 +15,16 @@ const connect = mongoose.connect(
 
 const STATUS_USER_ERROR = 422;
 const STATUS_SERVER_ERROR = 500;
-const COST = 11;
 
 const app = express();
+const dev = app.get('env') !== 'production';
+if(!dev) {
+  app.disable('x-powered-by');
+  app.use(express.static(path.resolve(__dirname, 'build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+  })
+}
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -39,7 +49,7 @@ app.use((req, res, next) => {
 });
 
 app.listen(8080, () => {
-  console.log('Server listening on port 8080');
+  console.log('Server listening');
 });
 
 // handle welcome/ home page
