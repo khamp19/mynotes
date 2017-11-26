@@ -18,9 +18,11 @@
   "author": "khamp19",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.1",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "express-session": "^1.15.6",
     "mongoose": "^4.11.11"
   }
 }

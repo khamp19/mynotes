@@ -8,10 +8,11 @@ mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
   'mongodb://localhost/notes',
   { useMongoClient: true }
-);
+); //replace this link with one from mLabs
 
 const STATUS_USER_ERROR = 422;
 const STATUS_SERVER_ERROR = 500;
+const COST = 11;
 
 const app = express();
 app.use(cors());
@@ -42,6 +43,7 @@ app.listen(8080, () => {
 });
 
 // handle welcome/ home page
+// this will be the login/ create page
 app.get('/', (req, res) => {
   res.json('hello world!');
 });
@@ -49,11 +51,11 @@ app.get('/', (req, res) => {
 // create new note
 app.post('/notes', (req, res) => {
   const { title, content, created_at } = req.body;
-  const newNote = new Note(req.body);
   if (!content) {
     res.sendUserError('Please add content to your note');
     return;
   }
+  const newNote = new Note(req.body);
   newNote.save((err, newNote) => {
     if(err) res.sendSystemError('Could not save note');
     res.status(200).json(newNote);
@@ -78,6 +80,26 @@ app.get('/notes/:id', (req, res) => {
       return;
     }
     res.json(note);
+  });
+});
+
+// update note- find, edit, save
+app.put('/notes/:id', (req, res) => {
+  const id = req.params.id;
+  Note.findById(req.params.id, (err, note) => {
+    if(err) res.sendSystemError(err);
+    if(!id) {
+      res.sendUserError('Note not found');
+      return;
+    }
+    // edit the note
+    note.title = req.body.title;
+    note.content = req.body.content;
+    // save the note
+    note.save((err, note) => {
+      if(err) res.sendSystemError(err);
+      res.json(note);
+    });
   });
 });
 
