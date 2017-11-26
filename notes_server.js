@@ -10,7 +10,7 @@ const PORT = normalizePort(process.env.PORT || 8080);
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
-  'mongodb://localhost/notes',
+  'mongodb://testing:test123@ds113785.mlab.com:13785/notes-project-db',
   { useMongoClient: true }
 );
 
@@ -25,11 +25,6 @@ if(!dev) {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
   })
-  const url = process.env.MONGOLAB_URI;
-  const connect = mongoose.connect(
-    url, 
-    { useMongoClient: true }
-  );
 }
 app.use(cors());
 app.use(bodyParser.json());
