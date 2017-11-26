@@ -26,6 +26,10 @@ if(!dev) {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
   })
   const url = process.env.MONGOLAB_URI;
+  const connect = mongoose.connect(
+    url, 
+    { useMongoClient: true }
+  );
 }
 app.use(cors());
 app.use(bodyParser.json());
