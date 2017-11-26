@@ -12,7 +12,7 @@ mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
   'mongodb://localhost/notes',
   { useMongoClient: true }
-); //replace this link with one from mLabs
+);
 
 const STATUS_USER_ERROR = 422;
 const STATUS_SERVER_ERROR = 500;
@@ -25,6 +25,7 @@ if(!dev) {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
   })
+  const url = process.env.MONGOLAB_URI;
 }
 app.use(cors());
 app.use(bodyParser.json());
