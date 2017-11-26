@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const Note = require('./notes');
 const path = require('path');
 
+const normalizePort = port => parseInt(port, 10);
 const PORT = normalizePort(process.env.PORT || 8080);
 
 mongoose.Promise = global.Promise;
@@ -48,7 +49,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(8080, () => {
+app.listen(PORT, err => {
+  if(err) console.log(err);
   console.log('Server listening');
 });
 
