@@ -60,7 +60,7 @@ class NewNote extends Component{
               value={this.state.content}
               onChange={this.handleContent} />
             <ButtonToolbar className="newNBT">
-              <Button bsStyle="success" onClick={this.addNote} onSubmit={'/notes'}>Save Note</Button>
+              <Button bsStyle="success" onClick={this.addNote}>Save Note</Button>
               <HomeButton />
             </ButtonToolbar>
           </Panel>

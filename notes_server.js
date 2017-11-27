@@ -5,14 +5,16 @@ const bodyParser = require('body-parser');
 const Note = require('./notes');
 const path = require('path');
 
+const uri = 'mongodb://testing:test123@ds113785.mlab.com:13785/notes-project-db';
+const options = {
+  useMongoClient: true
+};
+mongoose.connect(uri, options);
+
 const normalizePort = port => parseInt(port, 10);
 const PORT = normalizePort(process.env.PORT || 8080);
 
 mongoose.Promise = global.Promise;
-const connect = mongoose.connect(
-  'mongodb://testing:test123@ds113785.mlab.com:13785/notes-project-db',
-  { useMongoClient: true }
-);
 
 const STATUS_USER_ERROR = 422;
 const STATUS_SERVER_ERROR = 500;
@@ -28,6 +30,11 @@ if(!dev) {
 }
 app.use(cors());
 app.use(bodyParser.json());
+
+app.listen(PORT, err => {
+  if(err) console.log(err);
+  console.log('Server listening');
+});
 
 // handle errors
 app.use((req, res, next) => {
@@ -47,11 +54,6 @@ app.use((req, res, next) => {
     return;
   };
   next();
-});
-
-app.listen(PORT, err => {
-  if(err) console.log(err);
-  console.log('Server listening');
 });
 
 // handle welcome/ home page
